@@ -66,8 +66,8 @@ public class CreateBroadcast {
             // times for the broadcast. Currently, those times are hard-coded.
             LiveBroadcastSnippet broadcastSnippet = new LiveBroadcastSnippet();
             broadcastSnippet.setTitle(title);
-            broadcastSnippet.setScheduledStartTime(new DateTime("2014-07-02T23:00:00.000Z"));
-            broadcastSnippet.setScheduledEndTime(new DateTime("2014-07-02T24:00:00.000Z"));
+            broadcastSnippet.setScheduledStartTime(new DateTime("2015-07-04T23:00:00.000Z"));
+            broadcastSnippet.setScheduledEndTime(new DateTime("2015-07-05T24:00:00.000Z"));
 
             // Set the broadcast's privacy status to "private". See:
             // https://developers.google.com/youtube/v3/live/docs/liveBroadcasts#status.privacyStatus
@@ -108,7 +108,7 @@ public class CreateBroadcast {
             // ingestion type. See:
             // https://developers.google.com/youtube/v3/live/docs/liveStreams#cdn
             CdnSettings cdnSettings = new CdnSettings();
-            cdnSettings.setFormat("1080p");
+            cdnSettings.setFormat("480p");
             cdnSettings.setIngestionType("rtmp");
 
             LiveStream stream = new LiveStream();
@@ -128,8 +128,10 @@ public class CreateBroadcast {
             System.out.println("  - Description: " + returnedStream.getSnippet().getDescription());
             System.out.println("  - Published At: " + returnedStream.getSnippet().getPublishedAt());
             System.out.println("  - Ingestion Address: " + returnedStream.getCdn().getIngestionInfo().getIngestionAddress());
+            System.out.println("  - Stream Name: " + returnedStream.getCdn().getIngestionInfo().getStreamName());
             // Construct and execute a request to bind the new broadcast
             // and stream.
+            returnedStream.getCdn().getIngestionInfo().getStreamName();
             YouTube.LiveBroadcasts.Bind liveBroadcastBind =
                     youtube.liveBroadcasts().bind(returnedBroadcast.getId(), "id,contentDetails");
             liveBroadcastBind.setStreamId(returnedStream.getId());
